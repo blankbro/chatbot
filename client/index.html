@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Chat with GPT</title>
+    <style>
+        body {
+            font-family: "Helvetica", sans-serif;
+        }
+
+        .chatbox {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ddd;
+            overflow: scroll;
+        }
+
+        .usermsg, .botmsg {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .usermsg {
+            background: #eff;
+        }
+
+        .botmsg {
+            background: #ddf;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chatbox">
+    <div class="botmsg">
+        你好!我是ChatGPT机器人。很高兴与您聊天。
+    </div>
+</div>
+
+<div class="inputbox">
+    <input type="text" id="chatinput">
+    <button onclick="sendMsg()">发送</button>
+</div>
+
+<script>
+    function sendMsg() {
+        var msg = document.getElementById("chatinput").value;
+        document.getElementById("chatinput").value = "";
+
+        var chatbox = document.getElementsByClassName("chatbox")[0];
+        var usermsg = document.createElement("div");
+        usermsg.className = "usermsg";
+        usermsg.innerHTML = msg;
+        chatbox.appendChild(usermsg);
+
+        // 调用API发送消息并获取机器人回复
+        var botReply;
+        // 使用fetch API调用机器人API并获取JSON响应
+        fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({msg: msg})
+        })
+            .then(res => res.json())
+            .then(data => {
+                botReply = data.reply;
+                showBotMsg(botReply);
+            })
+    }
+
+    function showBotMsg(msg) {
+        var chatbox = document.getElementsByClassName("chatbox")[0];
+        var botmsg = document.createElement("div");
+        botmsg.className = "botmsg";
+        botmsg.innerHTML = msg;
+        chatbox.appendChild(botmsg);
+    }
+</script>
+
+</body>
+</html>

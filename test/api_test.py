@@ -1,18 +1,20 @@
 import openai
-from langchain.llms import AzureOpenAI
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-import utils.env as env
+import server.env as env
+from server.helper import LLMHelper
 
-if __name__ == "__main__":
+
+def test_openai():
     openai.api_type = env.OPENAI_API_TYPE
     openai.api_key = env.OPENAI_API_KEY
     openai.api_base = env.OPENAI_API_BASE
     openai.api_version = env.OPENAI_API_VERSION
-    completion_model = env.OPENAI_COMPLETION_MODEL
+    deployment_name = env.OPENAI_ENGINE_DEPLOYMENT_NAME
 
     prompt = "什么是OpenAI？"
     response = openai.Completion.create(
-        engine=completion_model,
+        engine=deployment_name,
         prompt=prompt,
         temperature=0.7,
         max_tokens=500,
@@ -26,8 +28,10 @@ if __name__ == "__main__":
     print(f'2 ==> {response["choices"][0]["text"]}')
     print(f'3 ==> {response["choices"][0]["text"].strip()}')
 
-    llm = AzureOpenAI(
-        deployment_name=completion_model,
-    )
-    llm("What is OpenAI?")
 
+def test_azure_openai():
+    LLMHelper(callbacks=[StreamingStdOutCallbackHandler()]).generate_response(question="What is OpenAI?")
+
+
+if __name__ == "__main__":
+    test_azure_openai()
