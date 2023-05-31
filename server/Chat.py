@@ -6,7 +6,7 @@ from streamlit_chat import message
 from utils.helper import LLMHelper
 
 
-def clear_chat_data():
+def clear_chat_history():
     st.session_state['input'] = ""
     st.session_state['chat_history'] = []
 
@@ -29,12 +29,15 @@ try:
 
     col1, col2 = st.columns([9, 1])
     with col1:
-        st.text_input("You: ", placeholder="type your question", key="input")
-        clear_chat = st.button("Clear chat", key="clear_chat", on_click=clear_chat_data)
+        st.text_area("You: ", placeholder="type your question", key="input")
     with col2:
         st.text("")
         st.text("")
         st.button("Send", on_click=send_msg)
+
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.button("Clear history", key="clear_history", on_click=clear_chat_history)
 
     if st.session_state['chat_history']:
         for i in range(len(st.session_state['chat_history']) - 1, -1, -1):
