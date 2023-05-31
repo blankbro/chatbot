@@ -29,7 +29,7 @@ try:
 
     col1, col2 = st.columns([9, 1])
     with col1:
-        st.text_area("You: ", placeholder="type your question", key="input")
+        st.text_area("You: ", placeholder="请在输入问题时不要透露任何敏感信息，包括个人信息和组织内部信息。", key="input")
     with col2:
         st.text("")
         st.text("")

@@ -37,7 +37,7 @@ git pull
 docker image rm -f chatbot
 
 # 打包新镜像
-docker build . -f server/StreamlitWebApp.Dockerfile -t chatbot
+docker build . -f server/StreamlitChatWeb.Dockerfile -t chatbot
 
 # 停止旧应用
 docker rm -f chatbot
