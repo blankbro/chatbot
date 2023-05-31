@@ -3,7 +3,7 @@ import traceback
 import streamlit as st
 from streamlit_chat import message
 
-from server.helper import LLMHelper
+from utils.helper import LLMHelper
 
 
 def clear_chat_data():

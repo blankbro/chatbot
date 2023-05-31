@@ -17,3 +17,24 @@ Install `PIP` Requirements
 ```console
 pip install -r src/requirements.txt
 ```
+
+服务器部署命令备忘
+
+```
+# 删除旧镜像
+docker image rm -f chatbot
+
+# 打包新镜像
+git pull
+docker build . -f StreamlitWebApp.Dockerfile -t chatbot
+
+# 停止旧应用
+docker rm -f chatbot
+
+# 启动新应用
+docker run -d --env-file .env -p 8090:80 --name chatbot chatbot 
+
+# 清除未被使用的镜像及其数据
+docker image prune -a 
+
+```

@@ -4,7 +4,7 @@ from langchain.callbacks.base import BaseCallbackHandler
 from langchain.chat_models import AzureChatOpenAI
 from langchain.schema import HumanMessage, BaseMessage, AIMessage
 
-import server.env as env
+from . import env
 
 
 def combine_message(question: str, chat_history: List[Tuple[str, str]]) -> List[BaseMessage]:
