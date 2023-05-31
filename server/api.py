@@ -2,7 +2,7 @@ import time
 
 from flask import Flask, stream_with_context
 
-from custom_callback_handler import WebStreamingCallbackHandler
+from callback_handler import WebStreamingCallbackHandler
 from helper import LLMHelper
 
 app = Flask(__name__)
