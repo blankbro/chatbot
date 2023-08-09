@@ -20,7 +20,7 @@ fi
 docker build . -t chatbot
 
 # 启动新容器
-docker run -d -p 8080:80 --name chatbot chatbot
+docker run -d -p 8082:80 --name chatbot chatbot
 
 # 清除未被使用的镜像及其数据
 docker image prune -a
