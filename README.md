@@ -31,21 +31,8 @@ streamlit run Chatbot.py
 ```
 # 拉取最新代码
 git clone https://github.com/timeway/chatbot.git
-git pull
+cd chatbot
 
-# 删除旧镜像
-docker image rm -f chatbot
-
-# 打包新镜像
-docker build . -f Dockerfile -t chatbot
-
-# 停止旧应用
-docker rm -f chatbot
-
-# 启动新应用
-docker run -d -p 8090:80 --name chatbot chatbot 
-
-# 清除未被使用的镜像及其数据
-docker image prune -a 
-
+# 一键运行
+./launch.sh
 ```
