@@ -2,16 +2,18 @@ import openai
 import streamlit as st
 
 with st.sidebar:
-    st.selectbox("Model", ("GPT-3.5", "GPT-4"), key="Model")
+    model_array = []
+    for model in st.secrets.OPENAI_GPT_MODEL:
+        model_array.append(model["model_name"])
+    st.selectbox("Model", model_array, key="Model")
 
 
 def get_model():
-    if st.session_state.Model == "GPT-3.5":
-        st.session_state.deployment_name = st.secrets.GPT3_5["OPENAI_ENGINE_DEPLOYMENT_NAME"]
-        st.session_state.model_name = st.secrets.GPT3_5["OPENAI_ENGINE_MODEL_NAME"]
-    elif st.session_state.Model == "GPT-4":
-        st.session_state.deployment_name = st.secrets.GPT4["OPENAI_ENGINE_DEPLOYMENT_NAME"]
-        st.session_state.model_name = st.secrets.GPT4["OPENAI_ENGINE_MODEL_NAME"]
+    for m in st.secrets.OPENAI_GPT_MODEL:
+        if st.session_state.Model == m["model_name"]:
+            st.session_state.deployment_name = m["deployment_name"]
+            st.session_state.model_name = m["model_name"]
+            break
 
 
 def clear_chat():
